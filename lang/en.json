@@ -1,0 +1,7 @@
+{
+    "امکان خاموش کردن ماشین در وضعیت خاموش وجود ندارد.": "Cannot 'start' instance while it is in state active.",
+    "توکن ارسالی نامعتبر است" : "The sent token is invalid",
+    "آدرس آی پی درخواستی غیر مجاز می باشد" : "The requested IP address is illegal",
+    "پارامترهای ارسالی صحیح نیست و يا تراکنش در سیستم وجود ندارد" : "The sent parameters are not correct or the transaction does not exist in the system",
+    "مهلت ارسال تراکنش به پايان رسیده است" : "The deadline for sending the transaction has expired"
+}

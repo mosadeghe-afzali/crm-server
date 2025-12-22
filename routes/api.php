@@ -8,4 +8,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 
+Route::group(['prefix' => '/v1/auth'], function () {
+    Route::post('/register', [App\Http\Controllers\V1\AuthController::class, 'register'])->name('auth.login');
+});
 
