@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Traits\ResponseTrait;
 use App\Services\V1\AuthService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 
 class AuthController extends Controller
@@ -22,5 +23,12 @@ class AuthController extends Controller
         $input = $request->validated();
         $this->authService->register($input);
         return $this->showResponse();
+    }
+
+    public function login(LoginRequest $request) {
+        $input = $request->validated(); 
+        $output = $this->authService->login($input); 
+
+        return $this->showResponse($output); 
     }
 }
