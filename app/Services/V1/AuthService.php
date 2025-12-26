@@ -1,56 +1,50 @@
 <?php
-
 namespace App\Services\V1;
 
-use App\Repositories\UserRepository; 
-class AuthService {
+use App\Repositories\UserRepository;
+use Illuminate\Validation\ValidationException;
 
-   private $userRepository;
+class AuthService
+{
+    private $userRepository;
 
-    public function __construct
-    (
+    public function __construct(
         UserRepository $userRepository,
     ) {
         $this->userRepository = $userRepository;
-
     }
 
-    public function register($input) {
+    public function register($input) {}
 
-    }
-
-    public function login($input) {
-
+    public function login($input)
+    {
         $user = $this->userRepository->show([
             'mobile' => $input['mobile'],
         ]);
 
-        if(empty($user)) {
-            $user = $this->userRepository->create([
-                'mobile' => $input['mobile']
-            ]);
+        if (empty($user)) {
+            throw ValidationException::withMessages(['user' => __('messages.public.error.not_exist', ['pattern' => 'کاربر'])]);
         }
 
         $token = $this->createToken(['user' => $user]);
 
         $output = [
             "accessToken" => $token['token'],
-            'refreshToken' => $token['token'],
             'exprie_at' => $token['expire_at'],
             "first_name" => $user->first_name,
             "last_name" => $user->last_name,
-            'is_verified' => $is_verified
         ];
 
         return $output;
     }
 
-    public function createToken($input) {
+    public function createToken($input)
+    {
         $user = $input['user'];
 
-        $tokenResult = $user->createToken('AuthToken'. $user->id);
-        $accessToken = $tokenResult->accessToken;
-        $tokenExpiration = $tokenResult->token->expires_at->format("Y-m-d H:i:s");
+        $token = $user->createToken('AuthToken' . $user->id);
+        $accessToken = $token->accessToken;
+        $tokenExpiration = $token->token->expires_at->format("Y-m-d H:i:s");
 
         return [
             'token' => $accessToken,
@@ -58,5 +52,4 @@ class AuthService {
             'token_type' => 'bearer'
         ];
     }
-
 }

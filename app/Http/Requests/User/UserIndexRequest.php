@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\User;
 
-use App\Rules\MobileRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UserIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,6 +14,9 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation() {
+        $this->merge(['type_name' => $this->route('type_name')]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,8 +25,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "mobile" => ['required', new MobileRule()],
-            'password' => "required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/"
+            'type_name' => "required|integer|in:customer,emploee"
         ];
     }
 }

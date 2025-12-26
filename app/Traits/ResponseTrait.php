@@ -8,11 +8,10 @@ trait ResponseTrait
         $response = [
             'success' => true,
             'message' => __('messages.public.success'),
-            'errors' => [],
             'data' => $input,
         ];
 
-        if (isset($input['success'], $input['message'], $input['data'], $input['errors'])) {
+        if (isset($input['success'], $input['message'], $input['data'])) {
             $response = $input;
         }
 
