@@ -22,6 +22,15 @@ class  UserService {
     }
 
     public function index($input) {
+
+        switch ($input['user_type_id'])  {
+            case 1:
+
+                break;
+            case 2:
+                
+                break;
+        }
         return $this->userRepository->index();
     }
 }

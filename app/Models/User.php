@@ -40,30 +40,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    const CUSTOMER_TYPE = 1;
-    const EMPLOEE_TYPE = 2;
 
     const STATUS_ACTIVE = 1;
     const STATUS_DEACTIVE = 0;
 
-    const USER_TYPES_TEXT = [
-        self::CUSTOMER_TYPE => 'کاربر',
-        self::EMPLOEE_TYPE => 'کارشناس'
-    ];
-
-    const USER_TYPES_ENUM = [
-        self::CUSTOMER_TYPE => 'custoemer',
-        self::EMPLOEE_TYPE => 'emploee'
-    ];
-
     const USER_STATUSES_TEXT = [
-        self::CUSTOMER_TYPE => 'فعال',
-        self::EMPLOEE_TYPE => 'غیرفعال'
+        self::STATUS_ACTIVE => 'فعال',
+        self::STATUS_DEACTIVE => 'غیرفعال'
     ];
 
     const USER_STATUSES_ENUM = [
-        self::CUSTOMER_TYPE => 'active',
-        self::EMPLOEE_TYPE => 'deactive'
+        self::STATUS_ACTIVE => 'active',
+        self::STATUS_DEACTIVE => 'deactive'
     ];
     /**
      * Get the attributes that should be cast.
@@ -86,6 +74,11 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->morphMany(File::class, 'addressable');
+    }
+
+    public function type()
+    {
+        return $this->belongsToMany(UserType::class, 'user_user_type');
     }
 
     public function scopeFilter($query, $request)
@@ -112,8 +105,8 @@ class User extends Authenticatable
         );
 
         $query->when(
-            $request['identification_code'] ?? false,
-            fn($query, $request) => $query->where('identification_num', $request)
+            $request['national_code'] ?? false,
+            fn($query, $request) => $query->where('national_code', $request)
         );
 
         $query->when(
@@ -122,8 +115,18 @@ class User extends Authenticatable
         );
 
         $query->when(
-            $request['password'] ?? false,
-            fn($query, $request) => $query->where('password',  $request)
+            $request['email'] ?? false,
+            fn($query, $request) => $query->where('email',  'LIKE', '%' . $request . '%')
         );
+
+        $query->when(
+            $request['gender'] ?? false,
+            fn($query, $request) => $query->where('gender', $request)
+        );
+
+        $query->when(
+            $request['user_type_id'] ?? false,
+            fn($query, $request) => $query->whereHas('types', fn($q) => $q->where('user_type_id', $request))
+        )->get();
     }
 }
