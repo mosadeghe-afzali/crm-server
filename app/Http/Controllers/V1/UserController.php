@@ -6,7 +6,6 @@ namespace App\Http\Controllers\V1;
 use App\Traits\ResponseTrait;
 use App\Services\V1\UserService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\IndexUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
@@ -17,14 +16,6 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-    }
-
-    public function index(IndexUserRequest $request) {
-        $input = $request->validated();
-        $input['user_type_id'] = ($input['type_name'] == 'customer') ? 1 : 2;
-        $output = $this->userService->index($input);
-
-        return $this->showResponse($output);
     }
 
     public function show($user_id)

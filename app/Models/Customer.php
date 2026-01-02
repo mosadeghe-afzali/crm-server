@@ -15,4 +15,10 @@ class Customer extends Model
     public function user() {
         $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function company() {
+        $this->belongsTo(CustomerCompany::class, 'customer_id', 'id');
+    }
+
+    public function scopeFilter($query, $request) {}
 }

@@ -10,10 +10,13 @@ class CustomerCompany extends Model
         'customer_id',
         'national_id',
         'registeration_date',
-        'name'
+        'company_name'
     ];
 
-    public function customer() {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id'); 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
+
+    public function scopeFilter($query, $request) {}
 }

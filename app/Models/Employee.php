@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $table = 'emploees';
+    protected $table = 'employees';
 
     protected $fillable = [
         'user_id',
@@ -20,6 +20,10 @@ class Employee extends Model
     }
 
     public function user() {
-        $this->belongsTo(User::class, 'user_id', 'id'); 
+        $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function scopeFilter($query, $request) {
+
     }
 }
