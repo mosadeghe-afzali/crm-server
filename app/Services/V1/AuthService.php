@@ -58,7 +58,8 @@ class AuthService
                 $this->employeeRepository->create([
                     'user_id' => $user->id,
                     'department_id' => $input['department_id'],
-                    'position' => $input['position']
+                    'position' => $input['position'],
+                    'internal_code' => $input['internal_code']
                 ]);
                 break;
             default:

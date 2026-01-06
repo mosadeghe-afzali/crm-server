@@ -5,7 +5,8 @@ namespace App\Http\Controllers\V1;
 use App\Traits\ResponseTrait;
 use App\Services\V1\UserService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\IndexUserRequest;
+use App\Http\Requests\User\Customer\IndexCustomerRequest;
+use App\Http\Requests\User\Customer\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -16,11 +17,18 @@ class CustomerController extends Controller
     {
         $this->userService = $userService;
     }
-    public function index(IndexUserRequest $request)
+    public function index(IndexCustomerRequest $request)
     {
         $input = $request->validated();
         $output = $this->userService->customers($input);
 
         return $this->showResponse($output);
+    }
+
+    public function update(UpdateCustomerRequest $request) {
+        $input = $request->validated();
+        $this->userService->updateCustomer($input);
+
+        return $this->showResponse();
     }
 }

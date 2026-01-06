@@ -46,4 +46,56 @@ class  UserService
     {
         return $this->employeeRepository->index($input);
     }
+
+    public function updateEmployee($input)
+    {
+        $employee = $this->employeeRepository->find($input['employee_id']);
+        $employee->update([
+            'department_id' => $input['department_id'],
+            'position' => $input['position'],
+            'internal_code' => $input['internal_code']
+        ]);
+        $employee->user->update([
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'mobile' => $input['mobile'],
+            'email' => $input['email'],
+            'national_code' => $input['national_code'],
+            'gender' => $input['gender']
+        ]);
+    }
+
+    public function updateCustomer($input)
+    {
+        $customer = $this->customerRepository->find($input['customer_id']);
+
+        $this->updateCompany($input, $customer);
+        $customer->update([
+            'type' => $input['type']
+        ]);
+        $customer->user->update([
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'mobile' => $input['mobile'],
+            'email' => $input['email'],
+            'national_code' => $input['national_code'],
+            'gender' => $input['gender']
+        ]);
+    }
+
+    public function updateCompany($input, $customer)
+    {
+        $customerCompany = $customer->company;
+        if ($customer->type == 2 && $input['type'] == 1) {
+            $this->customerCompanyRepository->delete($customerCompany->id);
+        }
+
+        if (!empty($customerCompany)) {
+            $customerCompany->update([
+                'company_name' => $input['company_name'],
+                'registration_date' => $input['registration_date'],
+                'national_id' => $input['national_id']
+            ]);
+        }
+    }
 }

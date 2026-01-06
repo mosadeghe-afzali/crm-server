@@ -26,4 +26,8 @@ class CustomerCompanyRepository {
 
         CustomerCompany::where('id', $user_id)->update($input);
     }
+
+    public function delete($id) {
+        return CustomerCompany::delete($id); 
+    }
 }
