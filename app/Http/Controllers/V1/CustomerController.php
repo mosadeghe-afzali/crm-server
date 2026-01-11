@@ -31,4 +31,10 @@ class CustomerController extends Controller
 
         return $this->showResponse();
     }
+
+    public function show($customer_id) {
+        $output = $this->userService->showCustomer($customer_id);
+
+        return $this->showResponse($output);
+    }
 }

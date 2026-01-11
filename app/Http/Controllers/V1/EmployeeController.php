@@ -26,10 +26,18 @@ class EmployeeController extends Controller
         return $this->showResponse($output);
     }
 
-    public function update(UpdateEmployeeRequest $request) {
+    public function update(UpdateEmployeeRequest $request)
+    {
         $input = $request->validated();
         $this->userService->updateEmployee($input);
 
         return $this->showResponse();
+    }
+
+    public function show($emmploeyee_id)
+    {
+        $output = $this->userService->showEmployee($emmploeyee_id);
+
+        return $this->showResponse($output);
     }
 }

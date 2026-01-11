@@ -8,7 +8,7 @@ class CustomerRepository {
         return Customer::with('user', 'company')->filter($input)->paginate(10);
     }
     public function show($input) {
-        return Customer::filter($input)->first();
+        return Customer::with('user', 'customerCompany')->filter($input)->first();
     }
 
     public function create($input) {

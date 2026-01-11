@@ -98,4 +98,14 @@ class  UserService
             ]);
         }
     }
+
+    public function showCustomer($customer_id)
+    {
+        return $this->customerRepository->show(['id' => $customer_id]);
+    }
+
+    public function showEmployee($employee_id)
+    {
+        return $this->employeeRepository->show(['id' => $employee_id]);
+    }
 }
