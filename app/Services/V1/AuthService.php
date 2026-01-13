@@ -2,6 +2,8 @@
 
 namespace App\Services\V1;
 
+use App\Models\Address;
+use App\Repositories\AddressRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\EmployeeRepository;
@@ -14,17 +16,20 @@ class AuthService
     private $customerRepository;
     private $employeeRepository;
     private $customerCompanyRepository;
+    private $addressRepository;
 
     public function __construct(
         UserRepository $userRepository,
         CustomerRepository $customerRepository,
         EmployeeRepository $employeeRepository,
-        CustomerCompanyRepository $customerCompanyRepository
+        CustomerCompanyRepository $customerCompanyRepository,
+        AddressRepository $addressRepository
     ) {
         $this->userRepository = $userRepository;
         $this->customerRepository = $customerRepository;
         $this->employeeRepository = $employeeRepository;
         $this->customerCompanyRepository = $customerCompanyRepository;
+        $this->addressRepository = $addressRepository;
     }
 
     public function register($input)
@@ -40,13 +45,18 @@ class AuthService
         ]);
         $userType::firstWheare(['slug', $input['type_name']]);
         $user->types()->sync([$userType->id]);
+        if (count($input['address'])) {
+            $input['address']['addressable_id'] = $user->id;
+            $input['address']['addressable_type'] = "App\Models\User";
+            $this->addressRepository->create($input['address']);
+        }
         switch ($input['type_name']) {
             case "customer":
                 $this->customerRepository->create([
                     'user_id' => $user->id,
                     'type' => $input['customer_type']
                 ]);
-                if($input['customer_type'] == 2) {
+                if ($input['customer_type'] == 2) {
                     $this->customerCompanyRepository->create([
                         'company_name' => $input['company_name'],
                         'registration_date' => $input['registration_date'],
@@ -58,7 +68,7 @@ class AuthService
                 $this->employeeRepository->create([
                     'user_id' => $user->id,
                     'department_id' => $input['department_id'],
-                    'position' => $input['position'],
+                    'position_id' => $input['position_id'],
                     'internal_code' => $input['internal_code']
                 ]);
                 break;

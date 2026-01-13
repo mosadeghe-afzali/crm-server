@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        return $this->morphMany(File::class, 'addressable');
+        return $this->morphMany(Address::class, 'addressable');
     }
 
     public function type()

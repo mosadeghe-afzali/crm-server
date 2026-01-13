@@ -41,9 +41,15 @@ class RegisterRequest extends FormRequest
             'national_id' => 'nullable|required_if:customer_type,2|digits:10',
             'registeration_date' => 'nullable|required_if:customer_type,2,date',
             'company_name' => 'nullable|required_if:customer_type,2|string|min:2|max:100',
-            'position' => 'required_if:type_name,employee',
+            'position_id' => 'required_if:type_name,employee|exists:positions,id',
             'internal_code' => 'required_if:type_name,employee',
-            'department_id' => 'required_if:type_name,employee'
+            'department_id' => 'required_if:type_name,employee|exists:departments,id',
+            'address' => 'array',
+            'address.province_id' => 'exists:provinces,id',
+            'address.city_id' => 'exists:cities,id',
+            'address.address' => 'string|min:3',
+            'address.postal_code' => 'nullable|string|digits:10',
+            'address.title' => 'nullable|string'
         ];
     }
 }
