@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->unsignedBigInteger('city_id');
             $table->morphs('addressable');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

@@ -1,18 +1,23 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Resources\Employee\EmployeeResource;
 use App\Models\Employee;
 
 class EmployeeRepository {
     public function index($input = []) {
-        return Employee::with('user')->filter($input)->paginate(10);
+        return Employee::with('user', 'department', 'position')->filter($input)->paginate(10);
     }
+
     public function show($input) {
-        return Employee::filter($input)->first();
+        $result = Employee::with('user', 'department', 'position')
+        ->filter($input)->first();
+        return new EmployeeResource($result);
     }
 
     public function create($input) {
-        return Employee::create($input);
+        $result = Employee::create($input);
+        return new EmployeeResource($result); 
     }
 
     public function find($user_id) {

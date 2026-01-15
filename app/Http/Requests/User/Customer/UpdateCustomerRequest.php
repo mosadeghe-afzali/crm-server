@@ -34,6 +34,13 @@ class UpdateCustomerRequest extends FormRequest
             'national_id' => 'nullable|required_if:type,2|digits:10',
             'registeration_date' => 'nullable|required_if:type,2,date',
             'company_name' => 'nullable|required_if:type,2|string|min:2|max:100',
+            'address' => 'array',
+            'address.address_id' => 'nullable|exists:addresses,id',
+            'address.province_id' => 'exists:provinces,id',
+            'address.city_id' => 'exists:cities,id',
+            'address.address' => 'string|min:3',
+            'address.postal_code' => 'nullable|string|digits:10',
+            'address.title' => 'nullable|string'
         ];
     }
 }

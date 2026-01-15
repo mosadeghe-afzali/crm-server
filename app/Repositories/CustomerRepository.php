@@ -1,14 +1,19 @@
 <?php
 namespace App\Repositories;
 
+use App\Http\Resources\Customer\CustomerCollection;
+use App\Http\Resources\Customer\CustomerResource;
 use App\Models\Customer;
 
 class CustomerRepository {
     public function index($input = []) {
-        return Customer::with('user', 'company')->filter($input)->paginate(10);
+        $result = Customer::with('user', 'company')->filter($input)->paginate(10);
+
+        return new CustomerCollection($result);
     }
     public function show($input) {
-        return Customer::with('user', 'customerCompany')->filter($input)->first();
+        $result = Customer::with('user', 'customerCompany')->filter($input)->first();
+        return new CustomerResource($result); 
     }
 
     public function create($input) {

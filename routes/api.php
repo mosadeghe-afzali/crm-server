@@ -17,7 +17,7 @@ Route::group(['prefix' => '/v1'], function () {
 
         Route::group(['prefix' => '/customer'], function () {
 
-            Route::get('/', [App\Http\Controllers\V1\CustomerController::class, 'index']);
+            Route::get('/{type?}', [App\Http\Controllers\V1\CustomerController::class, 'index']);
             Route::put('/{customer_id}', [App\Http\Controllers\V1\CustomerController::class, 'update']);
             Route::get('/{customer_id}', [App\Http\Controllers\V1\CustomerController::class, 'show']);
         });

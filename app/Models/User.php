@@ -53,6 +53,19 @@ class User extends Authenticatable
         self::STATUS_ACTIVE => 'active',
         self::STATUS_DEACTIVE => 'deactive'
     ];
+
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 0;
+
+    const USER_GENDER_TEXT = [
+        self::GENDER_MALE => 'مرد',
+        self::GENDER_FEMALE => 'زن'
+    ];
+
+    const USER_GENDER_ENUM = [
+        self::GENDER_MALE => 'male',
+        self::GENDER_FEMALE => 'female'
+    ];
     /**
      * Get the attributes that should be cast.
      *

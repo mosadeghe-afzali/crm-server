@@ -14,7 +14,8 @@ class Address extends Model
         'postal_code',
         'city_id',
         'addressable_type',
-        'addressable_id'
+        'addressable_id',
+        'status'
     ];
 
     public function addressable() {

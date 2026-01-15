@@ -2,6 +2,7 @@
 
 namespace App\Services\V1;
 
+use App\Models\Address;
 use App\Repositories\UserRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\EmployeeRepository;
@@ -63,6 +64,17 @@ class  UserService
             'national_code' => $input['national_code'],
             'gender' => $input['gender']
         ]);
+
+        if (count($input['address'])) {
+            if (empty($input['address']['address_id'])) {
+                $input['address']['addressable_id'] = $customer->id;
+                $input['address']['addressable_type'] = 'App\Models\User';
+
+                Address::creat($input['address']);
+            } else {
+                $user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
+            }
+        }
     }
 
     public function updateCustomer($input)
@@ -81,6 +93,17 @@ class  UserService
             'national_code' => $input['national_code'],
             'gender' => $input['gender']
         ]);
+
+        if (count($input['address'])) {
+            if (empty($input['address']['address_id'])) {
+                $input['address']['addressable_id'] = $customer->id;
+                $input['address']['addressable_type'] = 'App\Models\User';
+
+                Address::creat($input['address']);
+            } else {
+                $user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
+            }
+        }
     }
 
     public function updateCompany($input, $customer)

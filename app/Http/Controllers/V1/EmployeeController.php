@@ -18,6 +18,7 @@ class EmployeeController extends Controller
     {
         $this->userService = $userService;
     }
+    
     public function index(IndexEmployeeRequest $request)
     {
         $input = $request->validated();
