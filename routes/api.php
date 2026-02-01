@@ -29,4 +29,11 @@ Route::group(['prefix' => '/v1'], function () {
             Route::get('/{employee_id}', [App\Http\Controllers\V1\EmployeeController::class, 'show']);
         });
     });
+
+    Route::group(['prefix' => '/tickets'], function () {
+        Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'index']);
+        Route::post('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'create']);
+        Route::get('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'show']);
+        Route::put('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'update']);
+    });
 });

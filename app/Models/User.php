@@ -94,8 +94,7 @@ class User extends Authenticatable
         return $this->belongsToMany(UserType::class, 'user_user_type');
     }
 
-    public function scopeFilter($query, $request)
-    {
+    public function scopeFilter($query, $request) {
 
         $query->when(
             $request['id'] ?? false,
