@@ -3,6 +3,7 @@
 namespace App\Services\V1;
 
 use App\Models\Address;
+use App\Models\UserType;
 use App\Repositories\AddressRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CustomerRepository;
@@ -43,7 +44,7 @@ class AuthService
             'gender' => $input['gender'] ?? null,
             'password' => $input['password'],
         ]);
-        $userType::firstWheare(['slug', $input['type_name']]);
+        $userType = UserType::firstWheare(['slug', $input['type_name']]);
         $user->types()->sync([$userType->id]);
         if (count($input['address'])) {
             $input['address']['addressable_id'] = $user->id;
