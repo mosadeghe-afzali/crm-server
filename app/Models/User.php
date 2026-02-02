@@ -89,7 +89,7 @@ class User extends Authenticatable
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function type()
+    public function types()
     {
         return $this->belongsToMany(UserType::class, 'user_user_type');
     }
