@@ -44,7 +44,7 @@ class AuthService
             'gender' => $input['gender'] ?? null,
             'password' => $input['password'],
         ]);
-        $userType = UserType::firstWhere(['slug', $input['type_name']]);
+        $userType = UserType::firstWhere('slug', $input['type_name']);
         $user->types()->sync([$userType->id]);
         if (count($input['address'])) {
             $input['address']['addressable_id'] = $user->id;
