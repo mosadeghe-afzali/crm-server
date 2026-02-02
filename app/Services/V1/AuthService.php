@@ -39,8 +39,8 @@ class AuthService
             'last_name' => $input['last_name'],
             'mobile' => $input['mobile'],
             'email' => $input['email'] ?? null,
-            'national_code' => $input['national_code'],
-            'gender' => $input['gender'],
+            'national_code' => $input['national_code'] ?? null,
+            'gender' => $input['gender'] ?? null,
             'password' => $input['password'],
         ]);
         $userType::firstWheare(['slug', $input['type_name']]);
