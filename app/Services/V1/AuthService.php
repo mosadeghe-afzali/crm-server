@@ -38,7 +38,7 @@ class AuthService
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'mobile' => $input['mobile'],
-            'email' => $input['email'],
+            'email' => $input['email'] ?? null,
             'national_code' => $input['national_code'],
             'gender' => $input['gender'],
             'password' => $input['password'],
