@@ -46,7 +46,7 @@ class AuthService
         ]);
         $userType = UserType::firstWhere('slug', $input['type_name']);
         $user->types()->sync([$userType->id]);
-        if (count($input['address'])) {
+        if (isset($input['address']) && count($input['address'])) {
             $input['address']['addressable_id'] = $user->id;
             $input['address']['addressable_type'] = "App\Models\User";
             $this->addressRepository->create($input['address']);
