@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('national_code')->nullable()->nullable;
             $table->integer('gender')->nullable();
             $table->date('birth_date')->nullable;
-            $table->integer('type');
             $table->integer('status')->default(1);
             $table->dateTime('last_login')->nullable();
             $table->integer('two_step_login')->default(0);
