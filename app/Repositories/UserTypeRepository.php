@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 use App\Models\UserType;
 
-class UserTypeTypeRepository {
+class UserTypeRepository {
     public function index($input) {
         return UserType::filter($input)->paginate(10);
     }

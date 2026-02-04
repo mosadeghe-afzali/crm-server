@@ -12,13 +12,26 @@ class Customer extends Model
         'user_id',
         'type'
     ];
-    public function user() {
-        $this->belongsTo(User::class, 'user_id', 'id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function company() {
-        $this->belongsTo(CustomerCompany::class, 'customer_id', 'id');
+    public function company()
+    {
+        return $this->belongsTo(CustomerCompany::class, 'customer_id', 'id');
     }
 
-    public function scopeFilter($query, $request) {}
+    public function scopeFilter($query, $request)
+    {
+
+        $query->when(
+            $request['id'] ?? false,
+            fn($query, $request) => $query->where('id', $request)
+        );
+        $query->when(
+            $request['type'] ?? false,
+            fn($query, $request) => $query->where('type', $request)
+        );
+    }
 }

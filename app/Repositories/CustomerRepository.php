@@ -13,7 +13,7 @@ class CustomerRepository {
     }
     public function show($input) {
         $result = Customer::with('user', 'customerCompany')->filter($input)->first();
-        return new CustomerResource($result); 
+        return new CustomerResource($result);
     }
 
     public function create($input) {

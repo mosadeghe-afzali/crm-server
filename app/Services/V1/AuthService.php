@@ -11,7 +11,7 @@ use App\Repositories\CustomerRepository;
 use App\Repositories\EmployeeRepository;
 use Illuminate\Validation\ValidationException;
 use App\Repositories\CustomerCompanyRepository;
-use App\Repositories\UserTypeTypeRepository;
+use App\Repositories\UserTypeRepository;
 
 class AuthService
 {
@@ -28,7 +28,7 @@ class AuthService
         EmployeeRepository $employeeRepository,
         CustomerCompanyRepository $customerCompanyRepository,
         AddressRepository $addressRepository,
-        UserTypeTypeRepository $userTypeRepository
+        UserTypeRepository $userTypeRepository
     ) {
         $this->userRepository = $userRepository;
         $this->customerRepository = $customerRepository;
@@ -50,7 +50,7 @@ class AuthService
                 'gender' => $input['gender'] ?? null,
                 'password' => $input['password'],
             ]);
-            $userType = $this->userTypeRepository->show(['slug' => $input['type_name']]); 
+            $userType = $this->userTypeRepository->show(['slug' => $input['type_name']]);
             $user->types()->sync([$userType->id]);
             if (isset($input['address']) && count($input['address'])) {
                 $input['address']['addressable_id'] = $user->id;

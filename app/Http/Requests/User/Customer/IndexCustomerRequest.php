@@ -11,9 +11,12 @@ class IndexCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
-
+    protected function prepareForValidation()
+    {
+        $this->merge(['type' => $this->route('type')]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +25,7 @@ class IndexCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-    
+            'type' => 'nullable|numeric'
         ];
     }
 }
