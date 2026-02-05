@@ -7,6 +7,7 @@ class UserTypeRepository {
     public function index($input) {
         return UserType::filter($input)->paginate(10);
     }
+    
     public function show($input) {
         return UserType::filter($input)->first();
     }

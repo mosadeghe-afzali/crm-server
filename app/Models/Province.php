@@ -12,4 +12,6 @@ class Province extends Model
         'name',
         'slug',
     ];
+
+    public function scopeFilter($query, $request) {}
 }

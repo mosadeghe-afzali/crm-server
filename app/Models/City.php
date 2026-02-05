@@ -14,7 +14,21 @@ class City extends Model
         'province_id'
     ];
 
-    public function province() {
+    public function province()
+    {
         return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        $query->when(
+            $request['city_id'] ?? false,
+            fn($query, $request) => $query->where('id', $request)
+        );
+
+        $query->when(
+            $request['province_id'] ?? false,
+            fn($query, $request) => $query->where('province_id', $request)
+        );
     }
 }

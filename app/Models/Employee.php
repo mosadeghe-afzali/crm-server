@@ -24,7 +24,7 @@ class Employee extends Model
     }
 
     public function user() {
-        $this->belongsTo(User::class, 'user_id', 'id');
+       return  $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function scopeFilter($query, $request) {

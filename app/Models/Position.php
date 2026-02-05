@@ -13,7 +13,21 @@ class Position extends Model
         'department_id'
     ];
 
-    public function department() {
+    public function department()
+    {
         return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        $query->when(
+            $request['position_id'] ?? false,
+            fn($query, $request) => $query->where('id', $request)
+        );
+
+        $query->when(
+            $request['department_id'] ?? false,
+            fn($query, $request) => $query->where('department_id', $request)
+        );
     }
 }

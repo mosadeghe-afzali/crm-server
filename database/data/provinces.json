@@ -1,0 +1,252 @@
+{
+    "RECORDS": [
+        {
+            "id": "1",
+            "country_id": "1",
+            "name": "آذربایجان شرقی",
+            "latitude": "38",
+            "longitude": "46",
+            "code": "041"
+        },
+        {
+            "id": "2",
+            "country_id": "1",
+            "name": "آذربایجان غربی",
+            "latitude": "37",
+            "longitude": "45",
+            "code": "044"
+        },
+        {
+            "id": "3",
+            "country_id": "1",
+            "name": "اردبیل",
+            "latitude": "38",
+            "longitude": "48",
+            "code": "045"
+        },
+        {
+            "id": "4",
+            "country_id": "1",
+            "name": "اصفهان",
+            "latitude": "33",
+            "longitude": "52",
+            "code": "031"
+        },
+        {
+            "id": "5",
+            "country_id": "1",
+            "name": "البرز",
+            "latitude": "36",
+            "longitude": "51",
+            "code": "026"
+        },
+        {
+            "id": "6",
+            "country_id": "1",
+            "name": "ایلام",
+            "latitude": "33",
+            "longitude": "47",
+            "code": "084"
+        },
+        {
+            "id": "7",
+            "country_id": "1",
+            "name": "بوشهر",
+            "latitude": "29",
+            "longitude": "51",
+            "code": "077"
+        },
+        {
+            "id": "8",
+            "country_id": "1",
+            "name": "تهران",
+            "latitude": "36",
+            "longitude": "51",
+            "code": "021"
+        },
+        {
+            "id": "9",
+            "country_id": "1",
+            "name": "چهارمحال و بختیاری",
+            "latitude": "32",
+            "longitude": "51",
+            "code": "038"
+        },
+        {
+            "id": "10",
+            "country_id": "1",
+            "name": "خراسان جنوبی",
+            "latitude": "33",
+            "longitude": "59",
+            "code": "056"
+        },
+        {
+            "id": "11",
+            "country_id": "1",
+            "name": "خراسان رضوی",
+            "latitude": "35",
+            "longitude": "59",
+            "code": "051"
+        },
+        {
+            "id": "12",
+            "country_id": "1",
+            "name": "خراسان شمالی",
+            "latitude": "37",
+            "longitude": "57",
+            "code": "058"
+        },
+        {
+            "id": "13",
+            "country_id": "1",
+            "name": "خوزستان",
+            "latitude": "31",
+            "longitude": "49",
+            "code": "061"
+        },
+        {
+            "id": "14",
+            "country_id": "1",
+            "name": "زنجان",
+            "latitude": "37",
+            "longitude": "48",
+            "code": "024"
+        },
+        {
+            "id": "15",
+            "country_id": "1",
+            "name": "سمنان",
+            "latitude": "35",
+            "longitude": "54",
+            "code": "023"
+        },
+        {
+            "id": "16",
+            "country_id": "1",
+            "name": "سیستان و بلوچستان",
+            "latitude": "28",
+            "longitude": "61",
+            "code": "054"
+        },
+        {
+            "id": "17",
+            "country_id": "1",
+            "name": "فارس",
+            "latitude": "29",
+            "longitude": "53",
+            "code": "071"
+        },
+        {
+            "id": "18",
+            "country_id": "1",
+            "name": "قزوین",
+            "latitude": "36",
+            "longitude": "50",
+            "code": "028"
+        },
+        {
+            "id": "19",
+            "country_id": "1",
+            "name": "قم",
+            "latitude": "35",
+            "longitude": "51",
+            "code": "025"
+        },
+        {
+            "id": "20",
+            "country_id": "1",
+            "name": "كردستان",
+            "latitude": "36",
+            "longitude": "47",
+            "code": "087"
+        },
+        {
+            "id": "21",
+            "country_id": "1",
+            "name": "كرمان",
+            "latitude": "30",
+            "longitude": "57",
+            "code": "034"
+        },
+        {
+            "id": "22",
+            "country_id": "1",
+            "name": "كرمانشاه",
+            "latitude": "34",
+            "longitude": "47",
+            "code": "083"
+        },
+        {
+            "id": "23",
+            "country_id": "1",
+            "name": "کهگیلویه و بویراحمد",
+            "latitude": "31",
+            "longitude": "52",
+            "code": "074"
+        },
+        {
+            "id": "24",
+            "country_id": "1",
+            "name": "گلستان",
+            "latitude": "37",
+            "longitude": "55",
+            "code": "017"
+        },
+        {
+            "id": "25",
+            "country_id": "1",
+            "name": "گیلان",
+            "latitude": "37",
+            "longitude": "50",
+            "code": "013"
+        },
+        {
+            "id": "26",
+            "country_id": "1",
+            "name": "لرستان",
+            "latitude": "34",
+            "longitude": "48",
+            "code": "066"
+        },
+        {
+            "id": "27",
+            "country_id": "1",
+            "name": "مازندران",
+            "latitude": "36",
+            "longitude": "53",
+            "code": "011"
+        },
+        {
+            "id": "28",
+            "country_id": "1",
+            "name": "مركزی",
+            "latitude": "34",
+            "longitude": "-92",
+            "code": "086"
+        },
+        {
+            "id": "29",
+            "country_id": "1",
+            "name": "هرمزگان",
+            "latitude": "27",
+            "longitude": "55",
+            "code": "076"
+        },
+        {
+            "id": "30",
+            "country_id": "1",
+            "name": "همدان",
+            "latitude": "35",
+            "longitude": "48",
+            "code": "081"
+        },
+        {
+            "id": "31",
+            "country_id": "1",
+            "name": "یزد",
+            "latitude": "32",
+            "longitude": "54",
+            "code": "035"
+        }
+    ]
+}

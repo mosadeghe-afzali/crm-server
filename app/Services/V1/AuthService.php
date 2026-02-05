@@ -76,7 +76,7 @@ class AuthService
                         'user_id' => $user->id,
                         'department_id' => $input['department_id'],
                         'position_id' => $input['position_id'],
-                        'internal_code' => $input['internal_code']
+                        'internal_code' => $input['internal_code'] ?? null
                     ]);
                     break;
                 default:

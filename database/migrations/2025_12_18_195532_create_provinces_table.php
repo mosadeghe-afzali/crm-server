@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('provinces', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug'); 
+            $table->string('slug')->nullable();
+            $table->unsignedBigInteger('country_id')->default(1);
+            $table->integer('latitude')->nullable();
+            $table->integer('longitude')->nullable();
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }

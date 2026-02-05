@@ -22,7 +22,7 @@ Route::group(['prefix' => '/v1'], function () {
             Route::get('/{customer_id}', [App\Http\Controllers\V1\CustomerController::class, 'show']);
         });
 
-        Route::group(['prefix' => '/employee'], function () {
+        Route::group(['prefix' => '/employees'], function () {
 
             Route::get('/', [App\Http\Controllers\V1\EmployeeController::class, 'index']);
             Route::put('/{employee_id}', [App\Http\Controllers\V1\EmployeeController::class, 'update']);
@@ -35,5 +35,19 @@ Route::group(['prefix' => '/v1'], function () {
         Route::post('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'create']);
         Route::get('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'show']);
         Route::put('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'update']);
+    });
+
+    Route::group(['prefix' => '/provinces'], function () {
+        Route::get('/', [App\Http\Controllers\V1\GeneralController::class, 'provinces']);
+    });
+    Route::group(['prefix' => '/cities'], function () {
+        Route::get('/', [App\Http\Controllers\V1\GeneralController::class, 'cities']);
+    });
+
+    Route::group(['prefix' => '/departments'], function () {
+        Route::get('/', [App\Http\Controllers\V1\DepartmentController::class, 'index']);
+    });
+    Route::group(['prefix' => '/positions'], function () {
+        Route::get('/', [App\Http\Controllers\V1\PositionController::class, 'index']);
     });
 });

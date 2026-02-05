@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     protected $fillable = ['name', 'slug'];
-}
+
     public function scopeFilter($query, $request) {
 
         $query->when(
@@ -20,3 +20,4 @@ class UserType extends Model
             fn($query, $request) => $query->where('slug', 'LIKE', '%' . $request . '%')
         );
     }
+}
