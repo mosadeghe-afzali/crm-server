@@ -19,7 +19,7 @@ class Customer extends Model
 
     public function company()
     {
-        return $this->belongsTo(CustomerCompany::class, 'customer_id', 'id');
+        return $this->hasOne(CustomerCompany::class, 'customer_id', 'id');
     }
 
     public function scopeFilter($query, $request)

@@ -12,7 +12,9 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/auth'], function () {
         Route::post('/register/{type_name}', [App\Http\Controllers\V1\AuthController::class, 'register']);
         Route::post('/login', [App\Http\Controllers\V1\AuthController::class, 'login']);
+        Route::middleware('auth:api')->post('/logout', [App\Http\Controllers\V1\AuthController::class, 'logout']);
     });
+
     Route::group(['prefix' => '/users'], function () {
 
         Route::group(['prefix' => '/customers'], function () {

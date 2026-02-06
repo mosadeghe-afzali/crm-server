@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Services\V1;
-
-use App\Models\Address;
-use App\Models\UserType;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\AddressRepository;
 use App\Repositories\UserRepository;
@@ -59,14 +59,15 @@ class AuthService
             }
             switch ($input['type_name']) {
                 case "customer":
-                    $this->customerRepository->create([
+                    $customer = $this->customerRepository->create([
                         'user_id' => $user->id,
                         'type' => $input['customer_type']
                     ]);
                     if ($input['customer_type'] == 2) {
                         $this->customerCompanyRepository->create([
+                            'customer_id' => $customer->id,
                             'company_name' => $input['company_name'],
-                            'registration_date' => $input['registration_date'],
+                            'registeration_date' => $input['registeration_date'],
                             'national_id' => $input['national_id']
                         ]);
                     }
@@ -92,20 +93,22 @@ class AuthService
     public function login($input)
     {
         $user = $this->userRepository->show([
-            'mobile' => $input['mobile'],
+            'mobile' => $input['mobile']
         ]);
 
-        if (empty($user)) {
+        if (empty($user) || !Hash::check($input['password'], $user->password)) {
             throw ValidationException::withMessages(['user' => __('messages.public.error.not_exist', ['pattern' => 'کاربر'])]);
         }
 
         $token = $this->createToken(['user' => $user]);
-
+        $user->update(['last_login' => Carbon::Now()->format("Y-m-d H:i:s")]);
         $output = [
             "accessToken" => $token['token'],
             'exprie_at' => $token['expire_at'],
             "first_name" => $user->first_name,
             "last_name" => $user->last_name,
+            'user_id' => $user->id,
+            'mobile' => $user->mobile
         ];
 
         return $output;
@@ -124,5 +127,10 @@ class AuthService
             'expire_at' => $tokenExpiration,
             'token_type' => 'bearer'
         ];
+    }
+
+    public function revokeToken(Request $request)
+    {
+        $request->user()->token()->revoke();
     }
 }

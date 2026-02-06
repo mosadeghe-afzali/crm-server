@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\V1;
 
+use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Services\V1\AuthService;
 use App\Http\Controllers\Controller;
@@ -25,11 +26,18 @@ class AuthController extends Controller
         return $this->showResponse();
     }
 
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request)
+    {
         $input = $request->validated();
 
         $output = $this->authService->login($input);
 
         return $this->showResponse($output);
+    }
+
+    public function logout(Request $request)
+    {
+        $this->authService->revokeToken($request);
+        return $this->showResponse();
     }
 }

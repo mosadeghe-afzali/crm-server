@@ -54,8 +54,8 @@ class User extends Authenticatable
         self::STATUS_DEACTIVE => 'deactive'
     ];
 
-    const GENDER_MALE = 1;
-    const GENDER_FEMALE = 0;
+    const GENDER_MALE = 2;
+    const GENDER_FEMALE = 1;
 
     const USER_GENDER_TEXT = [
         self::GENDER_MALE => 'مرد',
@@ -94,7 +94,8 @@ class User extends Authenticatable
         return $this->belongsToMany(UserType::class, 'user_user_type');
     }
 
-    public function scopeFilter($query, $request) {
+    public function scopeFilter($query, $request)
+    {
 
         $query->when(
             $request['id'] ?? false,
@@ -135,7 +136,10 @@ class User extends Authenticatable
             $request['gender'] ?? false,
             fn($query, $request) => $query->where('gender', $request)
         );
-
+        $query->when(
+            $request['password'] ?? false,
+            fn($query, $request) => $query->where('password', $request)
+        );
         $query->when(
             $request['user_type_id'] ?? false,
             fn($query, $request) => $query->whereHas('types', fn($q) => $q->where('user_type_id', $request))
