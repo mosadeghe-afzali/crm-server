@@ -52,4 +52,13 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/positions'], function () {
         Route::get('/', [App\Http\Controllers\V1\PositionController::class, 'index']);
     });
+
+    Route::group(['prefix' => '/positions'], function () {
+        Route::post('/', [App\Http\Controllers\V1\PermissionController::class, 'store']);
+    });
+
+    Route::group(['prefix' => '/roles'], function () {
+        Route::post('/', [App\Http\Controllers\V1\PermissionController::class, 'index']);
+    });
+
 });
