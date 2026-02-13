@@ -12,7 +12,7 @@ class CustomerRepository {
         return new CustomerCollection($result);
     }
     public function show($input) {
-        $result = Customer::with('user', 'customerCompany')->filter($input)->first();
+        $result = Customer::with('user', 'company')->filter($input)->first();
         return new CustomerResource($result);
     }
 

@@ -15,7 +15,7 @@ class UserTypeSeeder extends Seeder
     {
         $data = [
             ['id' => 1, 'name' => 'کاربر', 'slug' => 'customer'],
-            ['id' => 2, 'name' => 'کارشناس', 'slug' => 'emploeee']
+            ['id' => 2, 'name' => 'کارشناس', 'slug' => 'employee']
         ];
 
         UserType::insert($data);

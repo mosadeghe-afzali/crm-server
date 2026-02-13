@@ -34,6 +34,11 @@ class EmployeeRepository
         return Employee::find($user_id);
     }
 
+    public function findOrFail($user_id)
+    {
+        return Employee::findOrFail($user_id);
+    }
+
     public function update($input)
     {
 

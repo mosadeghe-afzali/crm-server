@@ -26,4 +26,11 @@ class UserRepository {
 
         User::where('id', $user_id)->update($input);
     }
+
+    public function filterbyPosition($positionId) {
+        return User::whereHas('employee', function ($q) use ($positionId) {
+            $q->where('position_id', $positionId);
+        })->with('roles.permissions')->get();
+
+    }
 }

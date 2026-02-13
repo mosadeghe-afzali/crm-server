@@ -49,7 +49,8 @@ class AuthService
                 'national_code' => $input['national_code'] ?? null,
                 'gender' => $input['gender'] ?? null,
                 'password' => $input['password'],
-            ]);
+                'birth_date' => $input['birth_date'] ?? null
+             ]);
             $userType = $this->userTypeRepository->show(['slug' => $input['type_name']]);
             $user->types()->sync([$userType->id]);
             if (isset($input['address']) && count($input['address'])) {

@@ -16,7 +16,9 @@ class CustomerResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        $addresses = $this->user->addresses()->where('status', 1)->get();
+        $addresses = $this->user->addresses()
+        // ->where('status', 1)
+        ->get();
         $data = [
             'id' => $this->id,
             'first_name' => $this->user->first_name,
@@ -38,7 +40,7 @@ class CustomerResource extends JsonResource
             ];
         }
 
-        if ($item->type == 2) { #company
+        if ($this->type == 2) { #company
             $data['company_name'] = $this->company->company_name;
             $data['registeration_date'] = $this->company->registeration_date;
             $data['national_id'] = $this->company->national_id;

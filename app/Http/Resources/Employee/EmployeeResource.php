@@ -16,7 +16,9 @@ class EmployeeResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        $addresses = $this->user->addresses()->where('status', 1)->get();
+        $addresses = $this->user->addresses()
+        // ->where('status', 1)
+        ->get();
         $data = [
             'id' => $this->id,
             'first_name' => $this->user->first_name,

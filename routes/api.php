@@ -21,14 +21,25 @@ Route::group(['prefix' => '/v1'], function () {
 
             Route::get('/{type?}', [App\Http\Controllers\V1\CustomerController::class, 'index']);
             Route::put('/{customer_id}', [App\Http\Controllers\V1\CustomerController::class, 'update']);
-            Route::get('/{customer_id}', [App\Http\Controllers\V1\CustomerController::class, 'show']);
+            Route::get('/{customer_id}/show', [App\Http\Controllers\V1\CustomerController::class, 'show']);
         });
 
         Route::group(['prefix' => '/employees'], function () {
 
             Route::get('/', [App\Http\Controllers\V1\EmployeeController::class, 'index']);
-            Route::put('/{employee_id}', [App\Http\Controllers\V1\EmployeeController::class, 'update']);
-            Route::get('/{employee_id}', [App\Http\Controllers\V1\EmployeeController::class, 'show']);
+            Route::put('/', [App\Http\Controllers\V1\EmployeeController::class, 'update']);
+            Route::get('/{employee_id}/show', [App\Http\Controllers\V1\EmployeeController::class, 'show']);
+            Route::get('/{position_id}/permissions', [App\Http\Controllers\V1\EmployeeController::class, 'positionPermissions']);
+
+            Route::group(['prefix' => '/{employee_id'], function () {
+
+                Route::group(['prefix' => '/roles'], function () {
+                    Route::post('/', [App\Http\Controllers\V1\EmployeeController::class, 'assignRole']);
+                    Route::get('/', [App\Http\Controllers\V1\EmployeeController::class, 'roles']);
+                });
+            });
+
+
         });
     });
 
@@ -53,12 +64,21 @@ Route::group(['prefix' => '/v1'], function () {
         Route::get('/', [App\Http\Controllers\V1\PositionController::class, 'index']);
     });
 
-    Route::group(['prefix' => '/positions'], function () {
+    Route::group(['prefix' => '/permissions'], function () {
         Route::post('/', [App\Http\Controllers\V1\PermissionController::class, 'store']);
+        Route::get('/', [App\Http\Controllers\V1\PermissionController::class, 'index']);
     });
 
     Route::group(['prefix' => '/roles'], function () {
-        Route::post('/', [App\Http\Controllers\V1\PermissionController::class, 'index']);
-    });
+        Route::post('/', [App\Http\Controllers\V1\PermissionController::class, 'roleStore']);
+        Route::get('/', [App\Http\Controllers\V1\PermissionController::class, 'roleIndex']);
 
+        Route::group(['prefix' => '/{role_id}'], function () {
+
+            Route::group(['prefix' => '/permissions'], function () {
+                Route::get('/', [App\Http\Controllers\V1\PermissionController::class, 'rolePermissions']);
+                Route::post('/{permission_id}', [App\Http\Controllers\V1\PermissionController::class, 'assignrolePermissions']);
+            });
+        });
+    });
 });
