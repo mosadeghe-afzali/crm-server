@@ -27,7 +27,7 @@ Route::group(['prefix' => '/v1'], function () {
         Route::group(['prefix' => '/employees'], function () {
 
             Route::get('/', [App\Http\Controllers\V1\EmployeeController::class, 'index']);
-            Route::put('/', [App\Http\Controllers\V1\EmployeeController::class, 'update']);
+            Route::put('/{employee_id}', [App\Http\Controllers\V1\EmployeeController::class, 'update']);
             Route::get('/{employee_id}/show', [App\Http\Controllers\V1\EmployeeController::class, 'show']);
             Route::get('/{position_id}/permissions', [App\Http\Controllers\V1\EmployeeController::class, 'positionPermissions']);
 

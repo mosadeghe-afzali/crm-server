@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\User\Customer;
 
+use App\Rules\MobileRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCustomerRequest extends FormRequest
 {
