@@ -28,7 +28,7 @@ class CustomerResource extends JsonResource
             'gender' => !empty($this->user->gender) ? User::USER_GENDER_TEXT[$this->user->gender] : null,
             'national_code' => $this->user->national_code,
             'last_login' => $this->user->last_login,
-
+            'user_id' => $this->user->id
         ];
         foreach ($addresses as $address) {
             $data['addresses'][] = [

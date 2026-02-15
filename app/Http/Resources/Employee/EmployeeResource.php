@@ -17,8 +17,8 @@ class EmployeeResource extends JsonResource
     {
         // return parent::toArray($request);
         $addresses = $this->user->addresses()
-        // ->where('status', 1)
-        ->get();
+            // ->where('status', 1)
+            ->get();
         $data = [
             'id' => $this->id,
             'first_name' => $this->user->first_name,
@@ -32,7 +32,8 @@ class EmployeeResource extends JsonResource
             'position_name' => $this->position->name ?? null,
             'internal_code' => $this->internal_code,
             'department_id' => $this->department_id,
-            'department_name' => $this->department->name ?? null
+            'department_name' => $this->department->name ?? null,
+            'user_id' => $this->user->id
         ];
 
         foreach ($addresses as $address) {

@@ -26,6 +26,7 @@ class CustomerCollection extends ResourceCollection
                 'gender' => !empty($item->user->gender) ? User::USER_GENDER_TEXT[$item->user->gender] : null,
                 'national_code' => $item->user->national_code,
                 'last_login' => $item->user->last_login,
+                'user_id' => $item->user->id
             ];
 
             if($item->type == 2) { #company

@@ -16,6 +16,10 @@ class UpdateEmployeeRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge(['employee_id' => $this->route('employee_id')]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,11 +28,13 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            "employee_id" => 'required|exists:employees,id',
+            'user_id' => 'required|exists:users,id',
             'first_name' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[\x{600}-\x{6FF}\x{200c}\x{064b}\x{064d}\x{064c}\x{064e}\x{064f}\x{0650}\x{0651}\s]+$/u'],
             'last_name' => ['required', 'string', 'min:2', 'max:100', 'regex:/^[\x{600}-\x{6FF}\x{200c}\x{064b}\x{064d}\x{064c}\x{064e}\x{064f}\x{0650}\x{0651}\s]+$/u'],
-            'mobile' => ['required', 'string', new MobileRule(), Rule::unique('users')],
+            'mobile' => ['required', 'string', new MobileRule(), Rule::unique('users')->ignore($this->user_id)],
             'birth_date' => 'nullable|date_format:Y-m-d',
-            'email' => 'email',
+            'email' => ['email', Rule::unique('users')->ignore($this->user_id)],
             'gender' => 'nullable|integer',
             'national_code' => 'string',
             'position_id' => 'exists:positions,id',

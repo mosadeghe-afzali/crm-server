@@ -30,7 +30,8 @@ class EmployeeCollection extends ResourceCollection
                 'position_name' => $item->position->name ?? null,
                 'internal_code' => $item->internal_code,
                 'department_id' => $item->department_id,
-                'department_name' => $item->department->name ?? null
+                'department_name' => $item->department->name ?? null,
+                'user_id' => $item->user->id
             ];
         });
     }

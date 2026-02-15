@@ -53,7 +53,7 @@ class  UserService
         $employee = $this->employeeRepository->find($input['employee_id']);
         $employee->update([
             'department_id' => $input['department_id'],
-            'position' => $input['position'],
+            'position_id' => $input['position_id'],
             'internal_code' => $input['internal_code']
         ]);
         $employee->user->update([
@@ -65,12 +65,12 @@ class  UserService
             'gender' => $input['gender']
         ]);
 
-        if (count($input['address'])) {
+        if (isset($input['address']) && count($input['address'])) {
             if (empty($input['address']['address_id'])) {
-                $input['address']['addressable_id'] = $customer->id;
+                $input['address']['addressable_id'] = $employee->id;
                 $input['address']['addressable_type'] = 'App\Models\User';
 
-                Address::creat($input['address']);
+                Address::create($input['address']);
             } else {
                 $user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
             }
@@ -94,7 +94,7 @@ class  UserService
             'gender' => $input['gender']
         ]);
 
-        if (count($input['address'])) {
+        if (isset($input['address']) && count($input['address'])) {
             if (empty($input['address']['address_id'])) {
                 $input['address']['addressable_id'] = $customer->id;
                 $input['address']['addressable_type'] = 'App\Models\User';
