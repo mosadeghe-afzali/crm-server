@@ -21,6 +21,7 @@ class EmployeeCollection extends ResourceCollection
                 'id' => $item->id,
                 'first_name' => $item->user->first_name,
                 'last_name' => $item->user->last_name,
+                'full_name' => $item->user->first_name . " " . $item->user->last_name,
                 'mobile' => $item->user->mobile,
                 'email' => $item->user->email,
                 'gender' => !empty($item->user->gender) ? User::USER_GENDER_TEXT[$item->user->gender] : null,

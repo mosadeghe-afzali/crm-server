@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Customer extends Model
 {
@@ -32,6 +33,14 @@ class Customer extends Model
         $query->when(
             $request['type'] ?? false,
             fn($query, $request) => $query->where('type', $request)
+        );
+        $query->when(
+            $request['full_name'] ?? false,
+            fn($query, $request) =>
+            $query->whereHas(
+                'user',
+                fn($q) => $q->where(DB::raw('concat(first_name, " ", last_name)'), 'LIKE', "%{$request}%")
+            )
         );
     }
 }

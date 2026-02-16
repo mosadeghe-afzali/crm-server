@@ -25,7 +25,9 @@ class IndexCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'nullable|numeric'
+            'type' => 'nullable|numeric',
+            'id' => 'nullable|exists:customers,id',
+            "full_name" => 'nullable|string'
         ];
     }
 }

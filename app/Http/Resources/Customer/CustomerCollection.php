@@ -21,6 +21,7 @@ class CustomerCollection extends ResourceCollection
                 'id' => $item->id,
                 'first_name' => $item->user->first_name,
                 'last_name' => $item->user->last_name,
+                'full_name' => $item->user->first_name . " " . $item->user->last_name,
                 'mobile' => $item->user->mobile,
                 'email' => $item->user->email,
                 'gender' => !empty($item->user->gender) ? User::USER_GENDER_TEXT[$item->user->gender] : null,
@@ -29,7 +30,7 @@ class CustomerCollection extends ResourceCollection
                 'user_id' => $item->user->id
             ];
 
-            if($item->type == 2) { #company
+            if ($item->type == 2) { #company
                 $data['company_name'] = $item->company->company_name;
                 $data['registeration_date'] = $item->company->registeration_date;
                 $data['national_id'] = $item->company->national_id;

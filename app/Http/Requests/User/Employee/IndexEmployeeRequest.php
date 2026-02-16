@@ -22,7 +22,8 @@ class IndexEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'nullable|exists:employees,id',
+            "full_name" => 'nullable|string'
         ];
     }
 }
