@@ -38,11 +38,17 @@ class TicketController extends Controller
         $this->showResponse();
     }
 
-    public function create(UpdateTicketRequest $request)
+    public function update(UpdateTicketRequest $request)
     {
         $input = $request->validated();
         $this->ticketService->update($input);
 
         $this->showResponse();
+    }
+
+    public function proorities(){
+
+        $output = $this->ticketService->priorities();
+        return $this->showResponse($output);
     }
 }

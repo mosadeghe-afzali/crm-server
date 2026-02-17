@@ -38,16 +38,18 @@ Route::group(['prefix' => '/v1'], function () {
                     Route::get('/', [App\Http\Controllers\V1\EmployeeController::class, 'roles']);
                 });
             });
-
-
         });
     });
 
     Route::group(['prefix' => '/tickets'], function () {
         Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'index']);
-        Route::post('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'create']);
-        Route::get('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'show']);
+        Route::post('/', [App\Http\Controllers\V1\TicketController::class, 'create']);
         Route::put('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'update']);
+
+        Route::group(['prefix' => '/priorities'], function () {
+            Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'proorities']);
+        });
+        Route::get('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'show']);
     });
 
     Route::group(['prefix' => '/provinces'], function () {

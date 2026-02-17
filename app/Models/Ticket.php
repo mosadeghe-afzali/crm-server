@@ -2,70 +2,81 @@
 
 namespace App\Models;
 
+use App\Enums\TicketPriorityEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
     protected $fillable = [
-        "title",
-        "description",
-        "user_id",
-        "assignee_id",
-        "departmant_id",
-        "priority",
-        "start_at",
-        "end_at",
-        "completed_at",
-        "status",
-        "category_id",
-        "owner_id"
+        'title',
+        'description',
+        'user_id',
+        'assignee_id',
+        'departmant_id',
+        'priority',
+        'start_at',
+        'end_at',
+        'completed_at',
+        'status',
+        'category_id',
+        'owner_id',
     ];
 
-    public function replies() {
+    protected $casts = [
+        'priority' => TicketPriorityEnum::class,
+    ];
+
+    public function replies()
+    {
         return $this->hasMany(TicketReply::class, 'ticket_id', 'id');
     }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(TicketCategory::class, 'category_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function assignee() {
+    public function assignee()
+    {
         return $this->belongsTo(User::class, 'assignee_id', 'id');
     }
 
-    public function files() {
+    public function files()
+    {
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function scopeFilter($query, $request) {
+    public function scopeFilter($query, $request)
+    {
 
         $query->when(
             $request['id'] ?? false,
-            fn($query, $request) => $query->where('tickets.id', $request)
+            fn ($query, $request) => $query->where('tickets.id', $request)
         );
 
         $query->when(
             $request['title'] ?? false,
-            fn($query, $request) => $query->where('title', 'LIKE', '%' . $request . '%')
+            fn ($query, $request) => $query->where('title', 'LIKE', '%'.$request.'%')
         );
 
         $query->when(
             $request['ticket_id'] ?? false,
-            fn($query, $request) => $query->where('tickets.id', $request)
+            fn ($query, $request) => $query->where('tickets.id', $request)
         );
 
         $query->when(
             $request['department_id'] ?? false,
-            fn($query, $request) => $query->where('department_id', $request)
+            fn ($query, $request) => $query->where('department_id', $request)
         );
 
         $query->when(
             $request['priority'] ?? false,
-            fn($query, $request) => $query->where('priority', $request)
+            fn ($query, $request) => $query->where('priority', $request)
         )->get();
     }
 }
