@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Ticket;
+use App\Enums\TicketStatusEnum;
 use App\Enums\TicketPriorityEnum;
 
 class TicketRepository
@@ -42,6 +43,16 @@ class TicketRepository
             ['id' => TicketPriorityEnum::LOW->value, 'name' => TicketPriorityEnum::LOW->label()],
             ['id' => TicketPriorityEnum::INTERMEDIATE->value, 'name' => TicketPriorityEnum::INTERMEDIATE->label()],
             ['id' => TicketPriorityEnum::HIGH->value, 'name' => TicketPriorityEnum::HIGH->label()],
+        ];
+    }
+
+    public function statuses()
+    {
+        return [
+            ['id' => TicketStatusEnum::PENDING_RESPONSE->value, 'name' => TicketStatusEnum::PENDING_RESPONSE->label()],
+            ['id' => TicketStatusEnum::IN_PROGRESS->value, 'name' => TicketStatusEnum::IN_PROGRESS->label()],
+            ['id' => TicketStatusEnum::RESPONDED->value, 'name' => TicketStatusEnum::RESPONDED->label()],
+            ['id' => TicketStatusEnum::CLOSED->value, 'name' => TicketStatusEnum::CLOSED->label()],
         ];
     }
 }

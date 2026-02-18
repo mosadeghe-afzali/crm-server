@@ -11,22 +11,26 @@ use App\Traits\ResponseTrait;
 class TicketController extends Controller
 {
     use ResponseTrait;
+
     protected $ticketService;
 
     public function __construct(TicketService $ticketService)
     {
         $this->ticketService = $ticketService;
     }
+
     public function index()
     {
 
         $output = $this->ticketService->index();
+
         return $this->showResponse($output);
     }
 
     public function show($ticket_id)
     {
         $output = $this->ticketService->show();
+
         return $this->showResponse($output);
     }
 
@@ -46,9 +50,18 @@ class TicketController extends Controller
         $this->showResponse();
     }
 
-    public function proorities(){
+    public function proorities()
+    {
 
         $output = $this->ticketService->priorities();
+
+        return $this->showResponse($output);
+    }
+
+    public function statuses()
+    {
+        $output = $this->ticketService->statuses();
+
         return $this->showResponse($output);
     }
 }

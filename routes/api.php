@@ -49,6 +49,10 @@ Route::group(['prefix' => '/v1'], function () {
         Route::group(['prefix' => '/priorities'], function () {
             Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'proorities']);
         });
+
+        Route::group(['prefix' => '/statuses'], function () {
+            Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'statuses']);
+        });
         Route::get('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'show']);
     });
 

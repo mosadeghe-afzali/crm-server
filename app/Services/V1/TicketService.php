@@ -60,4 +60,9 @@ class TicketService
     {
         return $this->ticketRepository->priorities();
     }
+
+    public function statuses()
+    {
+        return $this->ticketRepository->statuses();
+    }
 }

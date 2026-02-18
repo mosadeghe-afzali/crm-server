@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    const STATUS_PENDING_RESPONSE = 1;
+
+    const STATUS_IN_PROGRESS = 2;
+
+    const STATUS_RESPONDED = 3;
+
+    const STATUS_CLOSED = 4;
+
     protected $fillable = [
         'title',
         'description',
@@ -24,6 +32,7 @@ class Ticket extends Model
 
     protected $casts = [
         'priority' => TicketPriorityEnum::class,
+        'status' => TicketStatusEnum::class,
     ];
 
     public function replies()
