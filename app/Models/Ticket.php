@@ -12,7 +12,7 @@ class Ticket extends Model
         'description',
         'user_id',
         'assignee_id',
-        'departmant_id',
+        'department_id',
         'priority',
         'start_at',
         'end_at',

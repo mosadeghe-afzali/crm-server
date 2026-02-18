@@ -27,7 +27,7 @@ class CreateTicketRequest extends FormRequest
             'title' => ['required', 'string', 'min:3', 'max:50', 'unique:tickets,title,' . $this->id . ',id,user_id,' . $this->user_id],
             'priority' => 'required|numeric',
             'department_id' => 'required|numeric|exists:departments,id',
-            'description' => 'required|string|min:10|max:6500|regex:/^[\p{L}\s\0-9\x{06F0}-\x{06F9}-_\.,،:؟@!?()]+$/u',
+            'description' => 'required|string|min:10|max:6500|regex:/^[a-zA-Z0-9\x{0600}-\x{06FF}\s\.\,\?\!\:\-\_\(\)\[\]\<\>\/\=\"\'\&\;\n\r\t]+$/u',
             'start_at' => 'nullable|date_format:Y-m-d H:i:s',
             'end_at' => 'nullable|date_format:Y-m-d H:i:s',
             'category_Id' => 'nullable|exists:ticket_categories,id',

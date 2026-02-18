@@ -26,13 +26,14 @@ class TicketService
             'title' => $input['title'],
             'description' => $input['description'],
             'user_id' => $input['user_id'],
-            'owner_id' => $input['owner_id'],
+            'owner_id' => $input['owner_id'] ?? $input['user_id'],
             'assignee_id' => $input['assignee_id'] ?? null,
             'department_id' => $input['department_id'],
             'priority' => $input['priority'],
             'start_at' => $input['start_at'] ?? null,
             'end_at' => $input['end_at'] ?? null,
             'category_Id' => $input['category_Id'] ?? 1,
+            'status' => 1,
         ]);
 
         if (! empty($input['attachments'])) {
@@ -57,6 +58,6 @@ class TicketService
 
     public function priorities()
     {
-        return $this->ticketRepository->priorities(); 
+        return $this->ticketRepository->priorities();
     }
 }
