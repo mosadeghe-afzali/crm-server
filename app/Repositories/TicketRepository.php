@@ -5,12 +5,14 @@ namespace App\Repositories;
 use App\Models\Ticket;
 use App\Enums\TicketStatusEnum;
 use App\Enums\TicketPriorityEnum;
+use App\Http\Resources\Ticket\TicketCollection;
 
 class TicketRepository
 {
     public function index($input)
     {
-        return Ticket::with('replies', 'files')->filter($input)->paginate(10);
+        $tickets = Ticket::with('replies', 'files')->filter($input)->paginate(10);
+        return new TicketCollection($tickets);
     }
 
     public function show($input)

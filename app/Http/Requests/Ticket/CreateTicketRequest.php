@@ -23,7 +23,8 @@ class CreateTicketRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'user_id' => 'exists:users,id',
+            'owner_id' => 'exists:users,id',
+            'assignee_id' => 'exists:users,id',
             'title' => ['required', 'string', 'min:3', 'max:50', 'unique:tickets,title,' . $this->id . ',id,user_id,' . $this->user_id],
             'priority' => 'required|numeric',
             'department_id' => 'required|numeric|exists:departments,id',
@@ -31,6 +32,7 @@ class CreateTicketRequest extends FormRequest
             'start_at' => 'nullable|date_format:Y-m-d H:i:s',
             'end_at' => 'nullable|date_format:Y-m-d H:i:s',
             'category_Id' => 'nullable|exists:ticket_categories,id',
+            "attachments" => "array",
             'attachments.*' => 'file'
         ];
     }

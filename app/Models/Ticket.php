@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\TicketPriorityEnum;
+use App\Enums\TicketStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
@@ -54,7 +55,14 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'assignee_id', 'id');
     }
-
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
@@ -65,27 +73,27 @@ class Ticket extends Model
 
         $query->when(
             $request['id'] ?? false,
-            fn ($query, $request) => $query->where('tickets.id', $request)
+            fn($query, $request) => $query->where('tickets.id', $request)
         );
 
         $query->when(
             $request['title'] ?? false,
-            fn ($query, $request) => $query->where('title', 'LIKE', '%'.$request.'%')
+            fn($query, $request) => $query->where('title', 'LIKE', '%' . $request . '%')
         );
 
         $query->when(
             $request['ticket_id'] ?? false,
-            fn ($query, $request) => $query->where('tickets.id', $request)
+            fn($query, $request) => $query->where('tickets.id', $request)
         );
 
         $query->when(
             $request['department_id'] ?? false,
-            fn ($query, $request) => $query->where('department_id', $request)
+            fn($query, $request) => $query->where('department_id', $request)
         );
 
         $query->when(
             $request['priority'] ?? false,
-            fn ($query, $request) => $query->where('priority', $request)
+            fn($query, $request) => $query->where('priority', $request)
         )->get();
     }
 }

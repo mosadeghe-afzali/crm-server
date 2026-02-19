@@ -7,6 +7,7 @@ use App\Http\Requests\Ticket\CreateTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
 use App\Services\V1\TicketService;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -19,10 +20,10 @@ class TicketController extends Controller
         $this->ticketService = $ticketService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $output = $this->ticketService->index();
+        $output = $this->ticketService->index($request->all());
 
         return $this->showResponse($output);
     }

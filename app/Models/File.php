@@ -11,10 +11,10 @@ class File extends Model
     protected $fillable = [
         'name',
         'size',
-        'extention',
+        'extension',
         'user_id',
-        'model_id',
-        'model_type',
+        'fileable_id',
+        'fileable_type',
         'status'
     ];
 

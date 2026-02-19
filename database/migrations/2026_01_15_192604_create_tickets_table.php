@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('descrpition');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->unsignedBigInteger('assignee_id')->nullable();
             $table->integer('priority');
             $table->integer('status');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->dateTime('start_at')->nallable();
             $table->dateTime('end_at')->nullable();
