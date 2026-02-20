@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Enums\TicketStatusEnum;
 use App\Enums\TicketPriorityEnum;
 use App\Http\Resources\Ticket\TicketCollection;
+use App\Http\Resources\Ticket\TicketResource;
 
 class TicketRepository
 {
@@ -17,7 +18,8 @@ class TicketRepository
 
     public function show($input)
     {
-        return Ticket::with('replies', 'files')->filter($input)->first();
+        $ticket = Ticket::with('replies', 'files')->filter($input)->first();
+        return new TicketResource($ticket);
     }
 
     public function create($input)

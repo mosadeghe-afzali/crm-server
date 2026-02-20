@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class TicketReply extends Model
 {
     protected $fillable = [
-        "ticket_id",
-        "type",
-        "user_id",
-        "message"
+        'ticket_id',
+        'type',
+        'user_id',
+        'message',
     ];
 
-    public function ticket() {
+    public function ticket()
+    {
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }

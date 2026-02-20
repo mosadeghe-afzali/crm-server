@@ -55,8 +55,8 @@ class User extends Authenticatable
         self::STATUS_DEACTIVE => 'deactive'
     ];
 
-    const GENDER_MALE = 2;
-    const GENDER_FEMALE = 1;
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
 
     const USER_GENDER_TEXT = [
         self::GENDER_MALE => 'مرد',
@@ -87,7 +87,7 @@ class User extends Authenticatable
     public function customer() {
         return $this->hasOne(Employee::class, 'user_id', 'id');
     }
-    
+
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');

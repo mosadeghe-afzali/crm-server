@@ -30,7 +30,8 @@ class TicketController extends Controller
 
     public function show($ticket_id)
     {
-        $output = $this->ticketService->show();
+        $input = ['ticket_id' => $ticket_id];
+        $output = $this->ticketService->show($input);
 
         return $this->showResponse($output);
     }
