@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\Ticket;
-use App\Enums\TicketStatusEnum;
 use App\Enums\TicketPriorityEnum;
+use App\Enums\TicketStatusEnum;
 use App\Http\Resources\Ticket\TicketCollection;
 use App\Http\Resources\Ticket\TicketResource;
+use App\Models\Ticket;
 
 class TicketRepository
 {
@@ -34,11 +34,18 @@ class TicketRepository
 
     public function update($input)
     {
-
         $ticket_id = $input['ticket_id'];
         unset($input['ticket_id']);
 
-        Ticket::where('id', $ticket_id)->update($input);
+        $updateData = array_filter($input, function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        if (! empty($updateData)) {
+            Ticket::where('id', $ticket_id)->update($updateData);
+        }
+
+        return Ticket::find($ticket_id);
     }
 
     public function priorities()

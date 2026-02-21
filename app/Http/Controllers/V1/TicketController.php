@@ -47,9 +47,9 @@ class TicketController extends Controller
     public function update(UpdateTicketRequest $request)
     {
         $input = $request->validated();
-        $this->ticketService->update($input);
+        $output = $this->ticketService->update($input);
 
-        $this->showResponse();
+        return $this->showResponse($output);
     }
 
     public function proorities()
