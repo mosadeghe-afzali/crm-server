@@ -80,4 +80,24 @@ class TicketService
     {
         return $this->ticketRepository->statuses();
     }
+
+    public function reply($input)
+    {
+        DB::transaction(function () use ($input) {
+            $reply = $this->ticketReplyRepository->create([
+                'ticket_id' => $input['ticket_id'],
+                'user_id' => $input['user_id'],
+                'type' => $input['type'],
+                'message' => $input['message'],
+            ]);
+
+            if (! empty($input['attachments'])) {
+                $this->fileRepository->storeTicketFiles(
+                    $reply,
+                    $input['attachments'],
+                    $input['user_id']
+                );
+            }
+        });
+    }
 }

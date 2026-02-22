@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ticket;
 
+use App\Models\TicketReply;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -73,7 +74,7 @@ class TicketResource extends JsonResource
             'replies' => $this->replies ? $this->replies->map(function ($reply) {
                 return [
                     'id' => $reply->id,
-                    'type' => $reply->type,
+                    'type' => TicketReply::TICKET_REPLY_TYPE_TEXT[$reply->type],
                     'message' => $reply->message,
                     'user' => $reply->user ? [
                         'id' => $reply->user->id,

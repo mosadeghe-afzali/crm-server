@@ -44,7 +44,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/tickets'], function () {
         Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'index']);
         Route::post('/', [App\Http\Controllers\V1\TicketController::class, 'create']);
-        Route::put('/{ticket_id}', [App\Http\Controllers\V1\TicketController::class, 'update']);
+        Route::post('/{ticket_id}/reply', [App\Http\Controllers\V1\TicketController::class, 'reply']);
 
         Route::group(['prefix' => '/priorities'], function () {
             Route::get('/', [App\Http\Controllers\V1\TicketController::class, 'proorities']);
