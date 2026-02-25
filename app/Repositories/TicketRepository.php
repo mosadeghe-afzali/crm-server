@@ -66,4 +66,32 @@ class TicketRepository
             ['id' => TicketStatusEnum::CLOSED->value, 'name' => TicketStatusEnum::CLOSED->label()],
         ];
     }
+
+    public function report()
+    {
+        $totalTickets = Ticket::count();
+        $pendingResponse = Ticket::where('status', TicketStatusEnum::PENDING_RESPONSE->value)->count();
+        $inProgress = Ticket::where('status', TicketStatusEnum::IN_PROGRESS->value)->count();
+        $highPriority = Ticket::where('priority', TicketPriorityEnum::HIGH->value)->count();
+
+        $upcomingEndTickets = Ticket::whereNotNull('end_at')
+            ->whereBetween('end_at', [now(), now()->addDays(3)])
+            ->with('user:id,first_name,last_name')
+            ->get()
+            ->map(function ($ticket) {
+                return [
+                    'ticket_id' => $ticket->id,
+                    'full_name' => $ticket->user?->first_name . " " . $ticket->user?->last_name,
+                    'end_at' => $ticket->end_at,
+                ];
+            });
+
+        return [
+            'total_tickets' => $totalTickets,
+            'pending_response' => $pendingResponse,
+            'in_progress' => $inProgress,
+            'high_priority' => $highPriority,
+            'upcoming_end_tickets' => $upcomingEndTickets,
+        ];
+    }
 }

@@ -27,7 +27,7 @@ class TicketService
 
     public function create($input)
     {
-        $ticket = DB::transaction(function () use($input) {
+        $ticket = DB::transaction(function () use ($input) {
             $ticket = $this->ticketRepository->create([
                 'title' => $input['title'],
                 'description' => $input['description'],
@@ -99,5 +99,10 @@ class TicketService
                 );
             }
         });
+    }
+
+    public function report()
+    {
+        return $this->ticketRepository->report();
     }
 }

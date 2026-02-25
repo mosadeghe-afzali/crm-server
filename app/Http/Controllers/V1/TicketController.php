@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\V1;
 
-use Illuminate\Http\Request;
+
 use App\Traits\ResponseTrait;
+use Illuminate\Http\Request;
 use App\Services\V1\TicketService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\CreateTicketRequest;
@@ -73,6 +74,13 @@ class TicketController extends Controller
         $input = $request->validated();
         $this->ticketService->reply($input);
 
-        return $this->showResponse();
+        $this->showResponse();
+    }
+
+    public function report()
+    {
+        $output = $this->ticketService->report();
+
+        return $this->showResponse($output);
     }
 }
