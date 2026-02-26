@@ -3,17 +3,19 @@
 namespace App\Services\V1;
 
 use App\Models\Address;
-use App\Repositories\UserRepository;
+use App\Repositories\CustomerCompanyRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\EmployeeRepository;
-use Illuminate\Validation\ValidationException;
-use App\Repositories\CustomerCompanyRepository;
+use App\Repositories\UserRepository;
 
-class  UserService
+class UserService
 {
     private $userRepository;
+
     private $customerRepository;
+
     private $employeeRepository;
+
     private $customerCompanyRepository;
 
     public function __construct(
@@ -38,12 +40,12 @@ class  UserService
         return $this->userRepository->update($input);
     }
 
-    function customers($input)
+    public function customers($input)
     {
         return $this->customerRepository->index($input);
     }
 
-    function employees($input)
+    public function employees($input)
     {
         return $this->employeeRepository->index($input);
     }
@@ -54,7 +56,7 @@ class  UserService
         $employee->update([
             'department_id' => $input['department_id'],
             'position_id' => $input['position_id'],
-            'internal_code' => $input['internal_code']
+            'internal_code' => $input['internal_code'],
         ]);
         $employee->user->update([
             'first_name' => $input['first_name'],
@@ -62,7 +64,7 @@ class  UserService
             'mobile' => $input['mobile'],
             'email' => $input['email'],
             'national_code' => $input['national_code'],
-            'gender' => $input['gender']
+            'gender' => $input['gender'],
         ]);
 
         if (isset($input['address']) && count($input['address'])) {
@@ -72,7 +74,7 @@ class  UserService
 
                 Address::create($input['address']);
             } else {
-                $user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
+                $employee->user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
             }
         }
     }
@@ -83,7 +85,7 @@ class  UserService
 
         $this->updateCompany($input, $customer);
         $customer->update([
-            'type' => $input['type']
+            'type' => $input['type'],
         ]);
         $customer->user->update([
             'first_name' => $input['first_name'],
@@ -91,17 +93,17 @@ class  UserService
             'mobile' => $input['mobile'],
             'email' => $input['email'],
             'national_code' => $input['national_code'],
-            'gender' => $input['gender']
+            'gender' => $input['gender'],
         ]);
 
         if (isset($input['address']) && count($input['address'])) {
             if (empty($input['address']['address_id'])) {
-                $input['address']['addressable_id'] = $customer->id;
+                $input['address']['addressable_id'] = $customer->user_id;
                 $input['address']['addressable_type'] = 'App\Models\User';
 
-                Address::creat($input['address']);
+                Address::create($input['address']);
             } else {
-                $user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
+                $customer->user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
             }
         }
     }
@@ -113,11 +115,11 @@ class  UserService
             $this->customerCompanyRepository->delete($customerCompany->id);
         }
 
-        if (!empty($customerCompany)) {
+        if (! empty($customerCompany)) {
             $customerCompany->update([
                 'company_name' => $input['company_name'],
                 'registration_date' => $input['registration_date'],
-                'national_id' => $input['national_id']
+                'national_id' => $input['national_id'],
             ]);
         }
     }
