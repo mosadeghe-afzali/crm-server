@@ -41,11 +41,23 @@ class UpdateEmployeeRequest extends FormRequest
             'internal_code' => 'string',
             'department_id' => 'exists:departments,id',
             'address' => 'array',
-            'address.province_id' => 'exists:provinces,id',
-            'address.city_id' => 'exists:cities,id',
-            'address.address' => 'string|min:3',
+            'address.address_id' => 'nullable|exists:addresses,id',
+            // 'address.province_id' => 'exists:provinces,id',
+            'address.city_id' => 'nullable|required_with:address|exists:cities,id',
+            'address.address' => 'nullable|required_with:address|string|min:3',
             'address.postal_code' => 'nullable|string|digits:10',
             'address.title' => 'nullable|string'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'address.address' =>  'آدرس',
+            'address.city_id' => 'شهر',
+            'address.province_id' => 'استان',
+            'address.title' => 'نام آدرس',
+            'address.postal_code' => 'کد پستی'
         ];
     }
 }

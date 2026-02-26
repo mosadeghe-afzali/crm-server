@@ -103,7 +103,9 @@ class UserService
 
                 Address::create($input['address']);
             } else {
-                $customer->user->addresses()->where('id', $input['address']['address_id'])->update($input['address']);
+                $address_id = $input['address']['address_id'];
+                unset($input['address']['address_id']);
+                $customer->user->addresses()->where('id', $address_id)->update($input['address']);
             }
         }
     }
@@ -118,7 +120,7 @@ class UserService
         if (! empty($customerCompany)) {
             $customerCompany->update([
                 'company_name' => $input['company_name'],
-                'registration_date' => $input['registration_date'],
+                'registeration_date' => $input['registeration_date'],
                 'national_id' => $input['national_id'],
             ]);
         }

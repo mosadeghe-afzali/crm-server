@@ -39,16 +39,27 @@ class UpdateCustomerRequest extends FormRequest
             'email' => ['email', Rule::unique('users')->ignore($this->user_id)],
             'gender' => 'integer',
             'national_code' => 'nullable|string',
-            'national_id' => 'nullable|required_if:type,2|digits:10',
-            'registeration_date' => 'nullable|required_if:type,2,date',
-            'company_name' => 'nullable|required_if:type,2|string|min:2|max:100',
+            "national_id" => "nullable|required_if:type,2|digits:10",
+            "registeration_date" => "nullable|required_if:type,2,date",
+            "company_name" => "nullable|required_if:type,2|string|min:2|max:100",
             'address' => 'array',
             'address.address_id' => 'nullable|exists:addresses,id',
-            'address.province_id' => 'exists:provinces,id',
-            'address.city_id' => 'exists:cities,id',
-            'address.address' => 'string|min:3',
+            // 'address.province_id' => 'exists:provinces,id',
+            'address.city_id' => 'nullable|required_with:address|exists:cities,id',
+            'address.address' => 'nullable|required_with:address|string|min:3',
             'address.postal_code' => 'nullable|string|digits:10',
             'address.title' => 'nullable|string'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'address.address' =>  'آدرس',
+            'address.city_id' => 'شهر',
+            'address.province_id' => 'استان',
+            'address.title' => 'نام آدرس',
+            'address.postal_code' => 'کد پستی'
         ];
     }
 }

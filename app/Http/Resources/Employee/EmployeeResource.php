@@ -25,7 +25,10 @@ class EmployeeResource extends JsonResource
             'last_name' => $this->user->last_name,
             'mobile' => $this->user->mobile,
             'email' => $this->user->email,
-            'gender' => !empty($this->user->gender) ? User::USER_GENDER_TEXT[$this->user->gender] : null,
+            'gender' => [
+                'id' => $this->user->gender,
+                'name' => !empty($this->user->gender) ? User::USER_GENDER_TEXT[$this->user->gender] : null,
+            ],
             'national_code' => $this->user->national_code,
             'last_login' => $this->user->last_login,
             'position_id' => $this->position_id,
@@ -41,7 +44,10 @@ class EmployeeResource extends JsonResource
                 'id' => $address->id,
                 'address_title' => $address->title,
                 'address' => $address->address,
-                'city_id' => $address->city_id,
+                'city' => [
+                    'id' => $address->city_id,
+                    'name' => $address->city->name
+                ],
                 'postal_code' => $address->postal_code
             ];
         }

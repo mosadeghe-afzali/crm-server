@@ -13,6 +13,20 @@ class Customer extends Model
         'user_id',
         'type'
     ];
+
+
+    const TYPE_PERSON = 1;
+    const TYPE_COMPANY = 2;
+
+    const CUSTOMER_TYPES_TEXT = [
+        self::TYPE_PERSON => 'حقیقی',
+        self::TYPE_COMPANY => 'حقوقی'
+    ];
+
+    const CUSTOMER_TYPES_ENUM = [
+        self::TYPE_PERSON => 'person',
+        self::TYPE_COMPANY => 'company'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

@@ -45,11 +45,22 @@ class RegisterRequest extends FormRequest
             'internal_code' => 'nullable|string',
             'department_id' => 'required_if:type_name,employee|exists:departments,id',
             'address' => 'array',
-            'address.province_id' => 'nullable|exists:provinces,id',
-            'address.city_id' => 'nullable|exists:cities,id',
-            'address.address' => 'nullable|string|min:3',
+            'address.province_id' => 'nullable|required_with:address|exists:provinces,id',
+            'address.city_id' => 'nullable|required_with:address|exists:cities,id',
+            'address.address' => 'nullable|required_with:address|string|min:3',
             'address.postal_code' => 'nullable|string|digits:10',
             'address.title' => 'nullable|string'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'address.address' =>  'آدرس',
+            'address.city_id' => 'شهر',
+            'address.province_id' => 'استان',
+            'address.title' => 'نام آدرس',
+            'address.postal_code' => 'کد پستی'
         ];
     }
 }

@@ -21,4 +21,8 @@ class Address extends Model
     public function addressable() {
         return $this->morphTo();
     }
+
+    public function city() {
+        return $this->belongsTo(City::class, 'city_id', 'id');
+    }
 }
